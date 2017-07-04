@@ -13,10 +13,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    
+    lazy var mainDrawerVC: DrawerViewController = {
+        let rawerVC = DrawerViewController.drawerWithViewController(leftVC: LeftViewController(), mainNavVC: UINavigationController.init(rootViewController: MainViewController()), drawerMaxWidth: DRAWER_WIDTH)
+        return rawerVC
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        setupRootViewController()
+        
         return true
+    }
+    
+    fileprivate func setupRootViewController() {
+        window = UIWindow.init(frame: UIScreen.main.bounds)
+        
+        window?.rootViewController = mainDrawerVC
+        window?.makeKeyAndVisible()
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
